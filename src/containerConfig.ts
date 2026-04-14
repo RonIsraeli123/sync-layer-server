@@ -9,6 +9,7 @@ import { getTracing } from '@common/tracing';
 import { resourceNameRouterFactory, RESOURCE_NAME_ROUTER_SYMBOL } from './resourceName/routes/resourceNameRouter';
 import { anotherResourceRouterFactory, ANOTHER_RESOURCE_ROUTER_SYMBOL } from './anotherResource/routes/anotherResourceRouter';
 import { getConfig } from './common/config';
+import { SyncManager } from './sync/scheduler/syncManager';
 
 export interface RegisterOptions {
   override?: InjectionObject<unknown>[];
@@ -26,17 +27,21 @@ export const registerExternalValues = async (options?: RegisterOptions): Promise
   const metricsRegistry = new Registry();
   configInstance.initializeMetrics(metricsRegistry);
 
+  const syncManager = new SyncManager(logger);
+
   const dependencies: InjectionObject<unknown>[] = [
     { token: SERVICES.CONFIG, provider: { useValue: configInstance } },
     { token: SERVICES.LOGGER, provider: { useValue: logger } },
     { token: SERVICES.TRACER, provider: { useValue: tracer } },
     { token: SERVICES.METRICS, provider: { useValue: metricsRegistry } },
+    { token: SERVICES.SYNC_MANAGER, provider: { useValue: syncManager } },
     { token: RESOURCE_NAME_ROUTER_SYMBOL, provider: { useFactory: resourceNameRouterFactory } },
     { token: ANOTHER_RESOURCE_ROUTER_SYMBOL, provider: { useFactory: anotherResourceRouterFactory } },
     {
       token: 'onSignal',
       provider: {
         useValue: async (): Promise<void> => {
+          syncManager.stop();
           await Promise.all([getTracing().stop()]);
         },
       },

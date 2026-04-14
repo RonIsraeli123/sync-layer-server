@@ -1,0 +1,41 @@
+import type { Logger } from '@map-colonies/js-logger';
+import { SyncStatus, type ScheduleEntry } from '../types';
+import { getSyncConfig } from '../config/syncConfig';
+import * as syncStateRepository from '../repository/syncStateRepository';
+import * as layerClient from '../graphql/api/layerClient';
+import * as layerDataRepository from '../repository/layerDataRepository';
+
+export async function fetchAndSyncLayerPage(logger: Logger, entry: ScheduleEntry): Promise<void> {
+  const config = getSyncConfig();
+  const state = syncStateRepository.getSyncState(entry.layerName);
+
+  try {
+    logger.info(
+      `Fetching page for layer "${entry.layerName}" - status: ${state.status}, offset: ${state.lastOffset}`
+    );
+
+    const response = await layerClient.fetchPage(entry.layerName, state.lastOffset);
+
+    logger.info(
+      `Received ${response.returnedCount} objects, ${response.deprecated.length} deprecated for layer "${entry.layerName}"`
+    );
+
+    layerDataRepository.handleNewObjects(logger, entry.layerName, response.objects);
+    layerDataRepository.handleDeprecatedObjects(logger, entry.layerName, response.deprecated);
+
+    syncStateRepository.updateOffset(entry.layerName, response.nextRecord);
+
+    if (state.status === SyncStatus.SYNCING && response.objects.length === 0) {
+      syncStateRepository.setStatus(entry.layerName, SyncStatus.READY);
+      logger.info(`Layer "${entry.layerName}" initial sync complete - status set to READY`);
+    }
+  } catch (error) {
+    logger.error(`Error processing layer "${entry.layerName}": ${(error as Error).message}`);
+  }
+
+  const updatedState = syncStateRepository.getSyncState(entry.layerName);
+  const interval =
+    updatedState.status === SyncStatus.SYNCING ? config.syncIntervalMs : config.pollIntervalMs;
+
+  entry.nextRunAt = Date.now() + interval;
+}

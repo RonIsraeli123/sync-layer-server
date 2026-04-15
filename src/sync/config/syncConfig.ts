@@ -10,5 +10,5 @@ const syncConfig: SyncConfig = {
 };
 
 export function getSyncConfig(): SyncConfig {
-  return { ...syncConfig };
+  return syncConfig;
 }

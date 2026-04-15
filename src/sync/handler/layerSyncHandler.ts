@@ -20,8 +20,15 @@ export async function fetchAndSyncLayerPage(logger: Logger, entry: ScheduleEntry
       `Received ${response.returnedCount} objects, ${response.deprecated.length} deprecated for layer "${entry.layerName}"`
     );
 
-    layerDataRepository.handleNewObjects(logger, entry.layerName, response.objects);
-    layerDataRepository.handleDeprecatedObjects(logger, entry.layerName, response.deprecated);
+    if (response.objects.length > 0) {
+      logger.info(`Inserting ${response.objects.length} new objects into layer "${entry.layerName}"`);
+      layerDataRepository.insertObjects(entry.layerName, response.objects);
+    }
+
+    if (response.deprecated.length > 0) {
+      logger.info(`Updating ${response.deprecated.length} deprecated objects in layer "${entry.layerName}"`);
+      layerDataRepository.updateDeprecatedObjects(entry.layerName, response.deprecated);
+    }
 
     syncStateRepository.updateOffset(entry.layerName, response.nextRecord);
 

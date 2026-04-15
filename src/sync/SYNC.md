@@ -62,9 +62,9 @@ src/sync/
 
 3. **Page Fetch** - `layerClient.fetchPage()` sends a GraphQL query to the third-party API requesting up to `pageSize` objects starting from the current offset.
 
-4. **Data Processing** - `layerDataRepository` handles the response:
-   - `handleNewObjects()` - Batch upserts new/updated geospatial objects into the remote DB layer table.
-   - `handleDeprecatedObjects()` - Batch merges updated fields into existing objects in the remote DB.
+4. **Data Processing** - The handler orchestrates the response and delegates to `layerDataRepository`:
+   - `insertObjects()` - Batch upserts new/updated geospatial objects into the remote DB layer table.
+   - `updateDeprecatedObjects()` - Batch merges updated fields into existing objects in the remote DB.
 
 5. **State Update** - `syncStateRepository` advances the offset to `nextRecord`.
 

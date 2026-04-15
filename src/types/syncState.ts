@@ -1,1 +1,2 @@
-export { SyncStatus, type SyncStateEntry } from '../dal/entities/syncState';
+export { SyncStatus, SyncStateEntry } from '../dal/entities/syncState';
+

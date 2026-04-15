@@ -1,6 +1,20 @@
+import { Entity, PrimaryColumn, Column } from 'typeorm';
+
+@Entity('layer_obstacles')
+export class LayerObjectEntity {
+  @PrimaryColumn({ type: 'text' })
+  id!: string;
+
+  @Column({ type: 'jsonb', nullable: true })
+  geometry!: object | null;
+
+  @Column({ type: 'jsonb', default: {} })
+  properties!: object;
+}
+
 export interface LayerObject {
   id: string;
-  geometry: unknown;
+  geometry: object | null;
   properties: Record<string, unknown>;
 }
 

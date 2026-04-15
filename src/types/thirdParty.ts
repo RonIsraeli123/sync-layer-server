@@ -1,4 +1,6 @@
-export type { LayerObject, DeprecatedObject } from '../dal/entities/layerObject';
+import type { LayerObject, DeprecatedObject } from '../dal/entities/layerObject';
+
+export type { LayerObject, DeprecatedObject };
 
 export interface ThirdPartyResponse {
   totalCount: number;

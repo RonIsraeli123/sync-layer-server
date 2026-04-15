@@ -1,4 +1,4 @@
-import type { DeprecatedObject, LayerObject } from '../types';
+import type { DeprecatedObject, LayerObject } from '../entities';
 
 export function insertObjects(_layerName: string, _objects: LayerObject[]): void {
   // TODO: INSERT ... ON CONFLICT (upsert) into the remote DB layer table

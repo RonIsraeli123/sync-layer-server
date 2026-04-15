@@ -9,7 +9,7 @@ import { getTracing } from '@common/tracing';
 import { resourceNameRouterFactory, RESOURCE_NAME_ROUTER_SYMBOL } from './resourceName/routes/resourceNameRouter';
 import { anotherResourceRouterFactory, ANOTHER_RESOURCE_ROUTER_SYMBOL } from './anotherResource/routes/anotherResourceRouter';
 import { getConfig } from './common/config';
-import { SyncManager } from './sync/scheduler/syncManager';
+import { SyncManager } from './scheduler/syncManager';
 
 export interface RegisterOptions {
   override?: InjectionObject<unknown>[];

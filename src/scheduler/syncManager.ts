@@ -2,8 +2,8 @@ import { setTimeout as sleep } from 'node:timers/promises';
 import type { Logger } from '@map-colonies/js-logger';
 import { Heap } from 'heap-js';
 import type { ScheduleEntry } from '../types';
-import { getSyncConfig } from '../config/syncConfig';
-import * as syncStateRepository from '../repository/syncStateRepository';
+import { getSyncConfig } from '../common/syncConfig';
+import * as syncStateRepository from '../dal/repositories/syncStateRepository';
 import { fetchAndSyncLayerPage } from '../handler/layerSyncHandler';
 
 const scheduleComparator = (a: ScheduleEntry, b: ScheduleEntry): number => a.nextRunAt - b.nextRunAt;

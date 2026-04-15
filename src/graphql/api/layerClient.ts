@@ -1,5 +1,5 @@
 import type { ThirdPartyResponse } from '../../types';
-import { getSyncConfig } from '../../config/syncConfig';
+import { getSyncConfig } from '../../common/syncConfig';
 import { GET_LAYER_PAGE } from '../queries/getLayerPage';
 
 export async function fetchPage(layerName: string, offset: number): Promise<ThirdPartyResponse> {

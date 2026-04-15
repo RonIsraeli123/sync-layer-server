@@ -8,11 +8,3 @@ export interface DeprecatedObject {
   id: string;
   updatedFields: Record<string, unknown>;
 }
-
-export interface ThirdPartyResponse {
-  totalCount: number;
-  returnedCount: number;
-  nextRecord: number;
-  objects: LayerObject[];
-  deprecated: DeprecatedObject[];
-}

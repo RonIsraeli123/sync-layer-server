@@ -29,21 +29,23 @@ The sync module continuously synchronizes geospatial layer data from a third-par
 ## File Structure
 
 ```
-src/sync/
+src/
 ├── scheduler/
 │   └── syncManager.ts            # Scheduler loop with min-heap priority queue
-├── config/
-│   └── syncConfig.ts             # Static config (layers, intervals, page size, URL)
 ├── handler/
 │   └── layerSyncHandler.ts       # Single-page fetch and process orchestration
-├── repository/
-│   ├── syncStateRepository.ts    # Tracks sync offset and status per layer
-│   └── layerDataRepository.ts    # Inserts new objects / updates deprecated ones
 ├── graphql/
 │   ├── api/
 │   │   └── layerClient.ts        # GraphQL client for the third-party API
 │   └── queries/
-│       └── getLayerPage.ts        # GetLayerPage query string
+│       └── getLayerPage.ts       # GetLayerPage query string
+├── dal/
+│   └── repositories/
+│       ├── syncStateRepository.ts    # Tracks sync offset and status per layer
+│       └── layerDataRepository.ts    # Inserts new objects / updates deprecated ones
+├── common/
+│   ├── syncConfig.ts             # Static config (layers, intervals, page size, URL)
+│   └── ...                       # Shared infra (config, constants, DI, tracing)
 └── types/
     ├── index.ts                  # Barrel export
     ├── syncConfig.ts             # SyncConfig interface

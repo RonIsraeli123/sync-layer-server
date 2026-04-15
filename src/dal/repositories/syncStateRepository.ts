@@ -1,4 +1,4 @@
-import { SyncStatus, type SyncStateEntry } from '../types';
+import { SyncStatus, type SyncStateEntry } from '../entities';
 
 // TODO: migrate to DB table `sync_state` - currently in-memory (resets on restart)
 const state = new Map<string, SyncStateEntry>();

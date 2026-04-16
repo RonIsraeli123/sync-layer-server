@@ -6,6 +6,7 @@ import type { Logger } from '@map-colonies/js-logger';
 import { SERVICES } from '@common/constants';
 import type { ConfigType } from '@common/config';
 import { getApp } from './app';
+import { SyncManager } from './scheduler/syncManager';
 
 void getApp()
   .then(([app, container]) => {
@@ -17,6 +18,9 @@ void getApp()
 
     server.listen(port, () => {
       logger.info(`app started on port ${port}`);
+
+      const syncManager = container.resolve<SyncManager>(SERVICES.SYNC_MANAGER);
+      syncManager.start();
     });
   })
   .catch((error: Error) => {

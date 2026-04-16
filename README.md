@@ -1,26 +1,21 @@
-# Map Colonies typescript service template
+# Sync Layer Server
 
 ----------------------------------
 
-This is a basic repo template for building new MapColonies web services in Typescript.
+Service that continuously synchronizes geospatial layer data from a third-party GraphQL API into a remote PostgreSQL database.
 
-> [!IMPORTANT]
-> To regenerate the types on openapi change run the command `npm run generate:openapi-types`.
-
-> [!WARNING]
-> After creating a new repo based on this template, you should delete the CODEOWNERS file.
-
+See [SYNC.md](./SYNC.md) for a detailed description of the sync module architecture and lifecycle.
 
 ## Development
 When in development you should use the command `npm run start:dev`. The main benefits are that it enables offline mode for the config package, and source map support for NodeJS errors.
 
-### Template Features:
+### Features:
 
 - eslint configuration by [@map-colonies/eslint-config](https://github.com/MapColonies/eslint-config)
 
 - prettier configuration by [@map-colonies/prettier-config](https://github.com/MapColonies/prettier-config)
 
-- jest
+- vitest
 
 - .nvmrc
 
@@ -32,9 +27,7 @@ When in development you should use the command `npm run start:dev`. The main ben
 
 - logging by [@map-colonies/js-logger](https://github.com/MapColonies/js-logger)
 
-- OpenAPI request validation
-
-- config load with [node-config](https://www.npmjs.com/package/node-config)
+- config load with [@map-colonies/config](https://www.npmjs.com/package/@map-colonies/config)
 
 - Tracing and metrics by [@map-colonies/telemetry](https://github.com/MapColonies/telemetry)
 
@@ -58,9 +51,6 @@ When in development you should use the command `npm run start:dev`. The main ben
 
 - snyk
 
-## API
-Checkout the OpenAPI spec [here](/openapi3.yaml)
-
 ## Installation
 
 Install deps with npm
@@ -83,7 +73,7 @@ Go to the project directory
 
 ```bash
 
-cd my-project
+cd sync-layer-server
 
 ```
 

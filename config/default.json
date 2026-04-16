@@ -1,10 +1,4 @@
 {
-  "openapiConfig": {
-    "filePath": "./openapi3.yaml",
-    "basePath": "/docs",
-    "rawPath": "/api",
-    "uiPath": "/api"
-  },
   "telemetry": {
     "metrics": {},
     "tracing": {
@@ -32,5 +26,12 @@
         "options": null
       }
     }
+  },
+  "sync": {
+    "layers": ["obstacles"],
+    "syncIntervalMs": 500,
+    "pollIntervalMs": 600000,
+    "pageSize": 500,
+    "thirdPartyBaseUrl": "http://mock-third-party/graphql"
   }
 }

@@ -14,11 +14,6 @@
           "type": "yaml",
           "path": "helm/Chart.yaml",
           "jsonpath": "$.appVersion"
-        },
-        {
-          "type": "yaml",
-          "path": "openapi3.yaml",
-          "jsonpath": "$.info.version"
         }
       ]
     }

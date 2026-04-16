@@ -23,10 +23,10 @@ export class SyncManager {
     syncStateRepository.initializeSyncState(config.layers);
 
     const initNowTime = Date.now();
-    for (const layerName of config.layers) {
-      const state = syncStateRepository.getSyncState(layerName);
-      this.heap.push({ layerName, nextRunAt: initNowTime });
-      this.logger.info(`Layer "${layerName}" scheduled - status: ${state.status}, offset: ${state.lastOffset}`);
+    const states = syncStateRepository.getAllSyncStates();
+    for (const state of states) {
+      this.heap.push({ layerName: state.layerName, nextRunAt: initNowTime });
+      this.logger.info(`Layer "${state.layerName}" scheduled - status: ${state.status}, offset: ${state.lastOffset}`);
     }
 
     this.running = true;

@@ -2,7 +2,7 @@ import type { Logger } from '@map-colonies/js-logger';
 import { SyncStatus, type ScheduleEntry } from '../types';
 import { getSyncConfig } from '../common/syncConfig';
 import * as syncStateRepository from '../dal/repositories/syncStateRepository';
-import * as layerClient from '../graphql/api/layerClient';
+import * as layerClient from '../externalClients/layersClient/layersClient';
 import * as layerDataRepository from '../dal/repositories/layerDataRepository';
 
 export async function fetchAndSyncLayerPage(logger: Logger, entry: ScheduleEntry): Promise<void> {

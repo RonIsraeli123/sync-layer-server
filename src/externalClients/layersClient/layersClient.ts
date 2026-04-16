@@ -1,6 +1,6 @@
 import type { ThirdPartyResponse } from '../../types';
 import { getSyncConfig } from '../../common/syncConfig';
-import { GET_LAYER_PAGE } from '../queries/getLayerPage';
+import { GET_LAYER_PAGE } from '../layersClientModel';
 
 export async function fetchPage(layerName: string, offset: number): Promise<ThirdPartyResponse> {
   const { thirdPartyBaseUrl, pageSize } = getSyncConfig();

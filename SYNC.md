@@ -34,11 +34,10 @@ src/
 │   └── syncManager.ts            # Scheduler loop with min-heap priority queue
 ├── handler/
 │   └── layerSyncHandler.ts       # Single-page fetch and process orchestration
-├── graphql/
-│   ├── api/
-│   │   └── layerClient.ts        # GraphQL client for the third-party API
-│   └── queries/
-│       └── getLayerPage.ts       # GetLayerPage query string
+├── externalClients/
+│   ├── layersClient/
+│   │   └── layersClient.ts       # GraphQL client for the third-party API
+│   └── layersClientModel.ts      # GetLayerPage query string
 ├── dal/
 │   └── repositories/
 │       ├── syncStateRepository.ts    # Tracks sync offset and status per layer
